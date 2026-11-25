@@ -1,0 +1,10 @@
+{
+  "name": "Clima Confort Casa",
+  "short_name": "ClimaCasa",
+  "description": "Monitorización de temperatura, humedad y confort térmico de la casa",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0b101b",
+  "theme_color": "#0b101b",
+  "orientation": "portrait"
+}

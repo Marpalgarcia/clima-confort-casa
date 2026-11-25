@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b101b" />
+  <title>Clima Confort Casa</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Cabecera con selector de estancia y botón de actualizar -->
+    <header class="topbar">
+      <div>
+        <span class="eyebrow">CONFORT TÉRMICO</span>
+        <div class="room-picker-wrap">
+          <select id="roomSelect" aria-label="Seleccionar habitación"></select>
+        </div>
+      </div>
+      <button id="refreshBtn" class="icon-btn" type="button" title="Actualizar datos">
+        Actualizar
+      </button>
+    </header>
+
+    <!-- Tarjeta hero con lectura principal -->
+    <section class="hero-card" id="heroCard">
+      <div class="hero-top">
+        <span id="statusBadge" class="badge badge-normal">CARGANDO...</span>
+        <span id="lastUpdate" class="muted-text">--:--</span>
+      </div>
+
+      <div class="temp-row">
+        <div class="temp-main">
+          <span id="tempValue">--.-</span>
+          <span class="unit">°C</span>
+        </div>
+        <div class="metrics-side">
+          <div class="mini-metric">
+            <span class="mini-label">Humedad</span>
+            <strong id="humValue">--%</strong>
+          </div>
+          <div class="mini-metric">
+            <span class="mini-label">Sensación</span>
+            <strong id="feelsValue">--.- °C</strong>
+          </div>
+        </div>
+      </div>
+
+      <p id="comfortSummary" class="hero-subtitle">
+        Esperando lecturas desde la base de datos...
+      </p>
+    </section>
+
+    <!-- Tarjeta de recomendación preventiva -->
+    <section class="card recommendation-card">
+      <div class="card-header">
+        <h2>Recomendación preventiva</h2>
+        <span id="modeTag" class="chip">MODO</span>
+      </div>
+      <p id="recommendationText" class="recommendation-text">
+        Analizando el comportamiento térmico de la estancia...
+      </p>
+    </section>
+
+    <!-- Gráfica de evolución reciente (SVG puro, sin librerías externas) -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Evolución reciente</h2>
+        <span class="muted-text">Sensación térmica (°C)</span>
+      </div>
+      <div class="chart-wrap">
+        <svg id="trendChart" viewBox="0 0 360 130" preserveAspectRatio="none" aria-label="Gráfica de sensación térmica">
+          <line x1="0" y1="25" x2="360" y2="25" class="grid-line" />
+          <line x1="0" y1="65" x2="360" y2="65" class="grid-line" />
+          <line x1="0" y1="105" x2="360" y2="105" class="grid-line" />
+          <polyline id="chartLine" class="chart-line" points="" />
+        </svg>
+        <div id="chartEmpty" class="empty-state">Aún no hay lecturas registradas para esta estancia.</div>
+      </div>
+      <div class="chart-footer">
+        <span id="minTempLabel" class="muted-text">Mín: --.- °C</span>
+        <span id="maxTempLabel" class="muted-text">Máx: --.- °C</span>
+      </div>
+    </section>
+
+    <!-- Historial de alertas -->
+    <section class="card">
+      <div class="card-header">
+        <h2>Últimas alertas</h2>
+        <span class="muted-text">Historial</span>
+      </div>
+      <ul id="alertsList" class="alerts-list">
+        <li class="empty-state">Sin alertas registradas todavía.</li>
+      </ul>
+    </section>
+
+    <!-- Configuración rápida de credenciales si se abre en local -->
+    <section class="card config-card">
+      <details id="configDetails">
+        <summary>Conexión con Supabase</summary>
+        <div class="config-form">
+          <label>
+            Project URL
+            <input id="cfgUrl" type="url" placeholder="https://svixnqniosxgeutscpdk.supabase.co" />
+          </label>
+          <label>
+            Publishable Key
+            <input id="cfgKey" type="password" placeholder="sb_publishable_..." />
+          </label>
+          <button id="saveCfgBtn" class="primary-btn" type="button">Guardar y conectar</button>
+        </div>
+      </details>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
